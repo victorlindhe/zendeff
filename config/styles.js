@@ -1,5 +1,8 @@
 import Globals from 'zendeff/config/globals.js';
 
+/*
+ *  Global styles for the whole app
+ */
 export default {
   primaryBackground: {
     backgroundColor: Globals.PRIMARY_COLOR
