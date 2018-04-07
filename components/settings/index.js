@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TextInput, AsyncStorage } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Button, TextInput, AsyncStorage } from 'react-native';
 import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
 import Picker from 'zendeff/components/picker';
@@ -48,8 +48,8 @@ export default class Settings extends React.Component {
     const settings = await AsyncStorage.getItem(Globals.SETTINGS_KEY);
     const settingsParsed = JSON.parse(settings);
 
-    if(settingsParsed && this.props.navigation.state.params.initial) {
-      this.props.navigation.navigate('WeightForm')
+    if(settingsParsed && this.props.navigation.state.params && this.props.navigation.state.params.initial) {
+      this.props.navigation.navigate('App')
     } else {
       this.setState({
         settings: settingsParsed || Globals.DEFAULT_SETTINGS
@@ -66,7 +66,7 @@ export default class Settings extends React.Component {
     if(!this.state.settings) return null
 
     return(
-      <View style={styles.view}>
+      <SafeAreaView style={styles.view}>
         <View style={[styles.innerView, styles.row]}>
           <Text style={styles.regularFont}>Selected gender is {this.state.settings.gender}</Text>
           <ColoredButton title={this.state.showPicker ? 'Finish' : 'Edit'} onPress={this._showPicker} styles={[styles.flexEnd]} /> 
@@ -98,7 +98,7 @@ export default class Settings extends React.Component {
         <View style={[styles.innerView, styles.row, { marginTop: 20 }]}>
           <ColoredButton title='Save settings' onPress={this._save} styles={[styles.fullWidth, styles.positive]} /> 
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }

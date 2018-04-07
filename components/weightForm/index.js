@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TextInput, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, AsyncStorage, SafeAreaView } from 'react-native';
 import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
 
@@ -17,9 +17,7 @@ export default class Settings extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    
-    };
+    this.state = {};
 
     this._loadSettings();
   }
@@ -34,9 +32,9 @@ export default class Settings extends React.Component {
 
   render() {
     return(
-      <View style={styles.view}>
+      <SafeAreaView style={styles.view}>
         <Text>Enter weight stuff here</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 }
