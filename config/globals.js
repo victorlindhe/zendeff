@@ -9,5 +9,6 @@ export default {
   DEFAULT_SETTINGS: {
     gender: 'male',
     interval: 7
-  }
+  },
+  SETTINGS_KEY: 'SETTINGS'
 };

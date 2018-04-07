@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, AsyncStorage } from 'react-native';
 import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
 import Picker from 'zendeff/components/picker';
@@ -26,9 +26,10 @@ export default class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      settings: Globals.DEFAULT_SETTINGS,
       showPicker: false
     };
+
+    this._loadSettings();
 
     this._showPicker = this._showPicker.bind(this);
     this._save = this._save.bind(this);
@@ -38,8 +39,17 @@ export default class Settings extends React.Component {
     this.setState({ showPicker: !this.state.showPicker });
   }
 
-  _save() {
+  _save = async () => {
     console.log(this.state.settings);
+    await AsyncStorage.setItem(Globals.SETTINGS_KEY, JSON.stringify(this.state.settings));
+  }
+
+  _loadSettings = async () => {
+    const settings = await AsyncStorage.getItem(Globals.SETTINGS_KEY);
+    const settingsParsed = JSON.parse(settings);
+    this.setState({
+      settings: settingsParsed || Globals.DEFAULT_SETTINGS
+    });
   }
 
   render() {
@@ -47,6 +57,8 @@ export default class Settings extends React.Component {
       { value: 'male', label: 'Male' },
       { value: 'female', label: 'Female' }
     ];
+
+    if(!this.state.settings) return null
 
     return(
       <View style={styles.view}>
@@ -67,11 +79,13 @@ export default class Settings extends React.Component {
             <TextInput 
               style={[styles.fullWidth, styles.regularFont]} 
               onChangeText={(v) => this.setState({ settings: { ...this.state.settings, height: parseInt(v) } } )} 
+              value={this.state.settings.height ? this.state.settings.height.toString() : ''}
               placeholder="Height (cm)"/> 
           </View>
           <View style={styles.col2}>
             <TextInput 
-              style={[styles.fullWidth, styles.regularFont]} 
+              style={[styles.fullWidth, styles.regularFont]}
+              value={this.state.settings.age ? this.state.settings.age.toString() : ''} 
               onChangeText={(v) => this.setState({ settings: { ...this.state.settings, age: parseInt(v) } } )} 
               placeholder="Age (years)"/> 
           </View>
