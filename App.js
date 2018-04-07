@@ -1,23 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Settings from 'zendeff/components/settings'
 
+/*
+ * Application entry point. Checks for settings. If none set, then redirect to settings page.
+ */
+const RootStack = StackNavigator(
+  {
+    Settings: {
+      screen: Settings
+    }
+  },
+  {
+    initialRouteName: 'Settings'
+  }
+);
+
+/*
+ * App with RootStack element
+ */
 export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+    return <RootStack />
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
