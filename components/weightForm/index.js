@@ -2,15 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, TextInput, AsyncStorage, SafeAreaView } from 'react-native';
 import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
+import ColoredButton from 'zendeff/components/coloredButton';
 
 const styles = StyleSheet.create(GlobalStyles);
 
 /*
  * The page to enter weight measurements
  */
-export default class Settings extends React.Component {
+export default class WeightForm extends React.Component {
   static navigationOptions = {
-    title: 'Enter measurements',
+    title: 'Weight',
     headerStyle: GlobalStyles.primaryBackground,
     headerTintColor: '#fff'
   }
@@ -32,8 +33,22 @@ export default class Settings extends React.Component {
 
   render() {
     return(
-      <SafeAreaView style={styles.view}>
-        <Text>Enter weight stuff here</Text>
+      <SafeAreaView style={[styles.view, styles.centered]}>
+        <View style={[styles.innerView, styles.centered]}>
+          <TextInput
+            placeholder="Weight (kg)"
+            style={[styles.superBigFont, styles.centeredText, styles.width70]}
+          />
+          <TextInput
+            placeholder="Navel (cm)"
+            style={[styles.superBigFont, styles.centeredText, styles.width70, { marginTop: 20 }]}
+          />
+          <ColoredButton 
+            title="Save today" 
+            onPress={() => {}}
+            styles={[styles.positive, styles.width70, { marginTop: 20 }]} 
+          />
+        </View>
       </SafeAreaView>
     );
   }

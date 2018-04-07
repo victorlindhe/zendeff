@@ -41,8 +41,21 @@ export default {
   regularFont: {
     fontSize: 18
   },
+  superBigFont: {
+    fontSize: 42
+  },
   flexEnd: {
     alignSelf: 'flex-end',
     marginLeft: 'auto'
+  },
+  centered: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  centeredText: {
+    textAlign: 'center'
+  },
+  width70: {
+    width: '70%'
   }
 };
