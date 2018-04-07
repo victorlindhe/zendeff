@@ -17,6 +17,12 @@ export default {
   },
   innerView: {
     width: '90%',
+    marginTop: 10
+  },
+  fullWidth: {
+    width: '100%'
+  },
+  row: {
     flexDirection: 'row',
     alignItems: 'center'
   },

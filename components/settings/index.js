@@ -25,13 +25,21 @@ export default class Settings extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = Globals.DEFAULT_SETTINGS;
+    this.state = {
+      settings: Globals.DEFAULT_SETTINGS,
+      showPicker: false
+    };
 
     this._showPicker = this._showPicker.bind(this);
+    this._save = this._save.bind(this);
   }
 
   _showPicker() {
     this.setState({ showPicker: !this.state.showPicker });
+  }
+
+  _save() {
+    console.log(this.state.settings);
   }
 
   render() {
@@ -42,17 +50,20 @@ export default class Settings extends React.Component {
 
     return(
       <View style={styles.view}>
-        <View style={styles.innerView}>
-          <Text style={styles.regularFont}>Selected gender is {this.state.gender}</Text>
+        <View style={[styles.innerView, styles.row]}>
+          <Text style={styles.regularFont}>Selected gender is {this.state.settings.gender}</Text>
           <ColoredButton title={this.state.showPicker ? 'Finish' : 'Edit'} onPress={this._showPicker} styles={[styles.flexEnd]} /> 
         </View>
-        <View style={{width: '90%'}}>
+        <View style={styles.innerView}>
           <Picker 
             collection={genders} 
-            selectedValue={this.state.gender}
+            selectedValue={this.state.settings.gender}
             show={this.state.showPicker}
-            onValueChange={(itemValue, itemIndex) => this.setState({ gender: itemValue })}
+            onValueChange={(itemValue, itemIndex) => this.setState({ settings: { ...this.state.settings, gender: itemValue } })}
             />
+        </View>
+        <View style={[styles.innerView, styles.row]}>
+          <ColoredButton title='Save settings' onPress={this._save} styles={[styles.fullWidth]} /> 
         </View>
       </View>
     );
