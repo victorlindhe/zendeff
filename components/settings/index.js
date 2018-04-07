@@ -29,10 +29,10 @@ export default class Settings extends React.Component {
       showPicker: false
     };
 
-    this._loadSettings();
-
     this._showPicker = this._showPicker.bind(this);
     this._save = this._save.bind(this);
+
+    this._loadSettings();
   }
 
   _showPicker() {
@@ -47,9 +47,14 @@ export default class Settings extends React.Component {
   _loadSettings = async () => {
     const settings = await AsyncStorage.getItem(Globals.SETTINGS_KEY);
     const settingsParsed = JSON.parse(settings);
-    this.setState({
-      settings: settingsParsed || Globals.DEFAULT_SETTINGS
-    });
+
+    if(settingsParsed && this.props.navigation.state.params.initial) {
+      this.props.navigation.navigate('WeightForm')
+    } else {
+      this.setState({
+        settings: settingsParsed || Globals.DEFAULT_SETTINGS
+      });
+    }    
   }
 
   render() {
