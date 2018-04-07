@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
 import Picker from 'zendeff/components/picker';
@@ -63,7 +63,21 @@ export default class Settings extends React.Component {
             />
         </View>
         <View style={[styles.innerView, styles.row]}>
-          <ColoredButton title='Save settings' onPress={this._save} styles={[styles.fullWidth]} /> 
+          <View style={styles.col2}>
+            <TextInput 
+              style={[styles.fullWidth, styles.regularFont]} 
+              onChangeText={(v) => this.setState({ settings: { ...this.state.settings, height: parseInt(v) } } )} 
+              placeholder="Height (cm)"/> 
+          </View>
+          <View style={styles.col2}>
+            <TextInput 
+              style={[styles.fullWidth, styles.regularFont]} 
+              onChangeText={(v) => this.setState({ settings: { ...this.state.settings, age: parseInt(v) } } )} 
+              placeholder="Age (years)"/> 
+          </View>
+        </View>
+        <View style={[styles.innerView, styles.row, { marginTop: 20 }]}>
+          <ColoredButton title='Save settings' onPress={this._save} styles={[styles.fullWidth, styles.positive]} /> 
         </View>
       </View>
     );

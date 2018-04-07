@@ -10,6 +10,12 @@ export default {
   secondaryBackground: {
     backgroundColor: Globals.SECONDARY_COLOR
   },
+  positive: {
+    backgroundColor: Globals.POSITIVE_COLOR
+  },
+  negative: {
+    backgroundColor: Globals.NEGATIVE_COLOR
+  },
   view: {
     flex: 1,
     alignItems: 'center',
@@ -25,6 +31,9 @@ export default {
   row: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  col2: {
+    width: '50%'
   },
   column: {
     flexDirection: 'column'
