@@ -60,7 +60,7 @@ export default class Settings extends React.Component {
     const settingsParsed = JSON.parse(settings);
 
     if(settingsParsed && this._isInitial()) {
-      this.props.navigation.navigate('App')
+      this.props.navigation.navigate('App');
     } else {
       this.setState({
         settings: settingsParsed || Globals.DEFAULT_SETTINGS,
