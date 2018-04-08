@@ -83,12 +83,17 @@ export default class Today extends React.Component {
     let interval = this.state.settings.interval;
     let averageWeight = this.state.weightEntries.getAverage(interval, 'weight');
     let averageWaist = this.state.weightEntries.getAverage(interval, 'waist');
+    let weightDiff = averageWeight - this.state.weightEntries.getAverage(interval*2, 'weight', interval);
+    let waistDiff = averageWaist - this.state.weightEntries.getAverage(interval*2, 'waist', interval);
 
     return(
       <SafeAreaView style={[styles.view, styles.centered]}>
         <Stats 
           weight={averageWeight.toFixed(2)}
+          weightDiff={weightDiff.toFixed(2)}
           waist={averageWaist.toFixed(2)}
+          waistDiff={waistDiff.toFixed(2)}
+          interval={interval}
         />
       </SafeAreaView>
     );

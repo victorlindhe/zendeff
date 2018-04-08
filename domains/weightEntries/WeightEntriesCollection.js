@@ -68,6 +68,8 @@ export default class WeightEntriesCollection {
       return acc + day[k];
     }
 
+    console.log(lastDays);
+
     return lastDays.reduce(reducer, 0) / lastDays.length;
   }
 

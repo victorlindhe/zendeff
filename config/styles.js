@@ -73,5 +73,14 @@ export default {
   },
   marginTop: {
     marginTop: 20
+  },
+  bold: {
+    fontWeight: 'bold'
+  },
+  positiveText: {
+    color: Globals.POSITIVE_COLOR
+  },
+  negativeText: {
+    color: Globals.NEGATIVE_COLOR
   }
 };
