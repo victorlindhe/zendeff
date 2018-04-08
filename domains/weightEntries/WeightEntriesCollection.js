@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /*
  * Class for handling weight entries
  */
@@ -26,7 +28,6 @@ export default class WeightEntriesCollection {
    */
   getByDate(date) {
     return this.entries.find((entry) => {
-      console.log(entry);
       return new Date(entry.date).getTime() === date.getTime();
     });
   }
@@ -49,11 +50,10 @@ export default class WeightEntriesCollection {
    */
   getSorted(inverse = false) {
     return this.entries.sort((e1, e2) => {
-      let e1time = e1.date.getTime(), e2time = e2.date.getTime();
       const i = inverse ? -1 : 1;
 
-      if(e1time === e2time) return 0;
-      return e1time > e2time ? i*1 : i*-1;
+      if(e1 === e2) return 0;
+      return moment(e1).isAfter(e2) ? i*1 : i*-1;
     });
   }
 
@@ -62,7 +62,7 @@ export default class WeightEntriesCollection {
    */
   getAverage(n, k) {
     const sorted = this.getSorted(true);
-    const index = sorted.length < n ? 0 : sorted.length - (n+1);
+    const index = sorted.length <= n ? 0 : sorted.length - (n+1);
     const lastDays = sorted.slice(index);
     const reducer = (acc, day) => {
       return acc + day[k];

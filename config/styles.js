@@ -51,7 +51,7 @@ export default {
     fontSize: 28
   },
   superBigFont: {
-    fontSize: 42
+    fontSize: 38
   },
   flexEnd: {
     alignSelf: 'flex-end',

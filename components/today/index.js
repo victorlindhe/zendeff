@@ -87,8 +87,8 @@ export default class Today extends React.Component {
     return(
       <SafeAreaView style={[styles.view, styles.centered]}>
         <Stats 
-          weight={averageWeight}
-          waist={averageWaist}
+          weight={averageWeight.toFixed(2)}
+          waist={averageWaist.toFixed(2)}
         />
       </SafeAreaView>
     );

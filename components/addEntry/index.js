@@ -67,7 +67,7 @@ export default class AddEntry extends React.Component {
     await AsyncStorage.setItem(Globals.DATA_ENTRIES, weightEntries.toJSON());
     
     this.setState({
-      weightEntries: weightEntries,
+      weightEntries: weightEntries
     });
   }
 
