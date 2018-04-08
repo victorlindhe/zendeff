@@ -4,6 +4,7 @@ import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
 import ColoredButton from 'zendeff/components/coloredButton';
 import WeightForm from 'zendeff/components/weightForm';
+import Stats from 'zendeff/components/stats';
 import WeightEntriesCollection from 'zendeff/domains/weightEntries/WeightEntriesCollection.js';
 
 const styles = StyleSheet.create(GlobalStyles);
@@ -75,6 +76,17 @@ export default class Today extends React.Component {
     );
   }
 
+  /*
+   * Renders Stats component by supplying weight entries
+   */
+  _renderStats() {
+    return(
+      <SafeAreaView style={[styles.view, styles.centered]}>
+        <Stats />
+      </SafeAreaView>
+    );
+  }
+
   /* 
    * Renders statistics view if today has been entered.
    * Otherwise it renders the weight form.
@@ -86,7 +98,7 @@ export default class Today extends React.Component {
     if(!todaysEntry) {
       return this._renderWeightForm();
     } else {
-      return null;
+      return this._renderStats();
     }
   }
 }
