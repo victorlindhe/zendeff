@@ -13,12 +13,15 @@ export default class ColoredButton extends React.Component {
   }
 
   render() {
+    let viewStyles = [styles.secondaryBackground, this.props.styles];
+
     return(
-      <View style={[styles.secondaryBackground, this.props.styles]}>
+      <View style={viewStyles}>
         <Button
           title={this.props.title}
           color='#fff'
           onPress={this.props.onPress}
+          disbaled={this.props.disabled}
           />
       </View>
     );

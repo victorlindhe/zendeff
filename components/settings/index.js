@@ -4,6 +4,7 @@ import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
 import Picker from 'zendeff/components/picker';
 import ColoredButton from 'zendeff/components/coloredButton';
+import GenderBasedForm from 'zendeff/components/genderBasedForm'; 
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings([
@@ -31,6 +32,7 @@ export default class Settings extends React.Component {
 
     this._showPicker = this._showPicker.bind(this);
     this._save = this._save.bind(this);
+    this._updateSettings = this._updateSettings.bind(this);
 
     this._loadSettings();
   }
@@ -40,8 +42,8 @@ export default class Settings extends React.Component {
   }
 
   _save = async () => {
-    console.log(this.state.settings);
     await AsyncStorage.setItem(Globals.SETTINGS_KEY, JSON.stringify(this.state.settings));
+    this.setState({ originalSettings: this.state.settings, showPicker: false });
   }
 
   _loadSettings = async () => {
@@ -52,9 +54,24 @@ export default class Settings extends React.Component {
       this.props.navigation.navigate('App')
     } else {
       this.setState({
-        settings: settingsParsed || Globals.DEFAULT_SETTINGS
+        settings: settingsParsed || Globals.DEFAULT_SETTINGS,
+        originalSettings: settingsParsed || Globals.DEFAULT_SETTINGS
       });
     }    
+  }
+
+  /*
+   * Performs a deep equality check using JSON.stringify :)
+   */
+  _hasUpdatedSettings() {
+    return JSON.stringify(this.state.settings) !== JSON.stringify(this.state.originalSettings)
+  }
+
+  /*
+   * Method for allowing inner form templates to update state
+   */
+  _updateSettings(k, v) {
+    this.setState({ settings: { ...this.state.settings, [k]: v } });
   }
 
   render() {
@@ -64,6 +81,8 @@ export default class Settings extends React.Component {
     ];
 
     if(!this.state.settings) return null
+
+    const saveDisabled = !this._hasUpdatedSettings();
 
     return(
       <SafeAreaView style={styles.view}>
@@ -95,8 +114,17 @@ export default class Settings extends React.Component {
               placeholder="Age (years)"/> 
           </View>
         </View>
+        <GenderBasedForm 
+          settings={this.state.settings}
+          updateSettings={this._updateSettings}
+        />
         <View style={[styles.innerView, styles.row, { marginTop: 20 }]}>
-          <ColoredButton title='Save settings' onPress={this._save} styles={[styles.fullWidth, styles.positive]} /> 
+          <ColoredButton 
+            title='Save settings' 
+            onPress={this._save} 
+            styles={[styles.fullWidth, saveDisabled ? styles.positiveDisabled : styles.positive]} 
+            disabled={saveDisabled} 
+          /> 
         </View>
       </SafeAreaView>
     );

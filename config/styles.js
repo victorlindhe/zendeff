@@ -13,6 +13,9 @@ export default {
   positive: {
     backgroundColor: Globals.POSITIVE_COLOR
   },
+  positiveDisabled: {
+    backgroundColor: Globals.POSITIVE_COLOR + '50'
+  },
   negative: {
     backgroundColor: Globals.NEGATIVE_COLOR
   },
