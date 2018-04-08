@@ -82,7 +82,10 @@ export default class Today extends React.Component {
   _renderStats() {
     return(
       <SafeAreaView style={[styles.view, styles.centered]}>
-        <Stats />
+        <Stats 
+          weightEntries={this.state.weightEntries}
+          interval={this.state.settings.interval}
+        />
       </SafeAreaView>
     );
   }

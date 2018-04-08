@@ -17,9 +17,12 @@ export default class Stats extends React.Component {
    * Renders the stats
    */
   render() {
+    let interval = this.props.interval;
+    let averageWeight = this.props.weightEntries.getAverage(interval, 'weight');
+
     return(
       <View style={[styles.innerView, styles.centered]}>
-        <Text style={[styles.superBigFont, styles.centeredText, styles.fullWidth]}>68.3kg</Text>
+        <Text style={[styles.superBigFont, styles.centeredText, styles.fullWidth]}>{averageWeight} kg</Text>
       </View>
     );
   }
