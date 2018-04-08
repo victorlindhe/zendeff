@@ -3,14 +3,15 @@ import { View, Text, StyleSheet, Button, TextInput, AsyncStorage, SafeAreaView }
 import GlobalStyles from 'zendeff/config/styles.js';
 import Globals from 'zendeff/config/globals.js';
 import ColoredButton from 'zendeff/components/coloredButton';
+import WeightForm from 'zendeff/components/weightForm';
 import WeightEntriesCollection from 'zendeff/domains/weightEntries/WeightEntriesCollection.js';
 
 const styles = StyleSheet.create(GlobalStyles);
 
 /*
- * The page to enter weight measurements
+ * The daily view of usage
  */
-export default class WeightForm extends React.Component {
+export default class Today extends React.Component {
   static navigationOptions = {
     title: 'Today',
     headerStyle: GlobalStyles.primaryBackground,
@@ -25,11 +26,13 @@ export default class WeightForm extends React.Component {
       date: this.props.date || new Date(new Date().toDateString())
     };
 
-    this._save = this._save.bind(this);
-
+    this.save = this.save.bind(this);
     this._load();
   }
 
+  /*
+   * Loads settings and stored weightEntries
+   */
   _load = async () => {
     const settings = await AsyncStorage.getItem(Globals.SETTINGS_KEY);
     const weightEntries = await AsyncStorage.getItem(Globals.DATA_ENTRIES);
@@ -43,53 +46,45 @@ export default class WeightForm extends React.Component {
     });
   }
 
-  _save = async () => {
-    this.state.weightEntries.addEntry({ 
-      date: this.state.date, 
-      weight: this.state.weight,
-      waist: this.state.waist
-    });
-
-    console.log('saving: ');
-    console.log(this.state.weightEntries.toJSON());
-
-    await AsyncStorage.setItem(Globals.DATA_ENTRIES, this.state.weightEntries.toJSON());
-
-    // To trigger re-render
+  /*
+   * Listener function for when saving weight form
+   */
+  save = async (newEntry) => {
+    let weightEntries = this.state.weightEntries;
+    weightEntries.addEntry(newEntry);
+    await AsyncStorage.setItem(Globals.DATA_ENTRIES, weightEntries.toJSON());
+    
     this.setState({
-      weightEntries: this.state.weightEntries
+      weightEntries: weightEntries
     });
   }
 
+  /*
+   * Renders a weight form to enter today's data
+   */
+  _renderWeightForm() {
+    return(
+      <SafeAreaView style={[styles.view, styles.centered]}>
+        <WeightForm 
+          date={this.state.date}
+          weight={this.state.weight} 
+          waist={this.state.waist} 
+          save={this.save} 
+        />
+      </SafeAreaView>
+    );
+  }
+
+  /* 
+   * Renders statistics view if today has been entered.
+   * Otherwise it renders the weight form.
+   */
   render() {
     if(!this.state.weightEntries) return null;
-
     const todaysEntry = this.state.weightEntries.getByDate(this.state.date);
 
     if(!todaysEntry) {
-      return(
-        <SafeAreaView style={[styles.view, styles.centered]}>
-          <View style={[styles.innerView, styles.centered]}>
-            <TextInput
-              placeholder="Weight (kg)"
-              value={this.state.weight ? this.state.weight.toString() : null}
-              onChangeText={(v) => { this.setState({ weight: parseInt(v) }) }}
-              style={[styles.superBigFont, styles.centeredText, styles.width70]}
-            />
-            <TextInput
-              placeholder="Waist (cm)"
-              value={this.state.waist ? this.state.waist.toString() : null}
-              onChangeText={(v) => { this.setState({ waist: parseInt(v) }) }}
-              style={[styles.superBigFont, styles.centeredText, styles.width70, styles.marginTop]}
-            />
-            <ColoredButton 
-              title="Save" 
-              onPress={this._save}
-              styles={[styles.positive, styles.width70, styles.marginTop]} 
-            />
-          </View>
-        </SafeAreaView>
-      );
+      return this._renderWeightForm();
     } else {
       return null;
     }
