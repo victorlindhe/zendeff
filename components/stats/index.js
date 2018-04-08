@@ -19,7 +19,8 @@ export default class Stats extends React.Component {
   render() {
     return(
       <View style={[styles.innerView, styles.centered]}>
-        <Text style={[styles.superBigFont, styles.centeredText, styles.fullWidth]}>{this.props.weight} kg</Text>
+        <Text style={[styles.regularFont, styles.centeredText, styles.fullWidth]}>Current stats</Text>
+        <Text style={[styles.superBigFont, styles.centeredText, styles.fullWidth]}>{this.props.weight} kg / {this.props.waist} cm</Text>
       </View>
     );
   }
