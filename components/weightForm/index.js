@@ -20,8 +20,6 @@ export default class WeightForm extends React.Component {
    * Saves the entry to AsyncStorage and notifies parent component
    */
   _save = async () => {
-    console.log(JSON.stringify(this.props));
-
     this.props.save({ 
       date: this.props.date, 
       weight: this.state.weight,
