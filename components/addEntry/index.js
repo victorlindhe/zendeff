@@ -34,7 +34,6 @@ export default class AddEntry extends React.Component {
     this.save = this.save.bind(this);
     this._backDate = this._backDate.bind(this);
     this._forwardDate = this._forwardDate.bind(this);
-    this._renderForwardButton = this._renderForwardButton.bind(this);
     this._load();
   }
 
@@ -115,22 +114,6 @@ export default class AddEntry extends React.Component {
   }
 
   /*
-   * Renders forward button if date < today
-   */
-  _renderForwardButton() {
-    if(this.state.date.isBefore(this._getToday())) {
-      return (
-        <Button
-          onPress={this._forwardDate}
-          color="#000"
-          title=">" />
-      );
-    }
-
-    return null
-  }
-
-  /*
    * Returns today by midnight
    */
   _getToday() {
@@ -142,26 +125,39 @@ export default class AddEntry extends React.Component {
    * Otherwise it renders the weight form.
    */
   render() {
-    let date = this.state.date.format('dddd, MMMM Do');
+    let date = this.state.date.format('YYYY-MM-DD');
+    let disableForward = !this.state.date.isBefore(this._getToday());
 
     if(!this.state.weightEntries) return null
 
     return(
-      <SafeAreaView style={[styles.view, styles.centered]}>
-        <View style={[styles.innerView, styles.row, styles.centered, { marginBottom: 40 }]}>
-          <Button
-            onPress={this._backDate}
-            color="#000"
-            title="<" />
-          <Text style={[styles.bigFont]}>{date}</Text>
-          {this._renderForwardButton()}
+      <SafeAreaView style={[styles.view]}>
+        <View style={[styles.innerView, styles.centered, styles.row, styles.marginTop]}>
+          <View style={[styles.flexStart]}>
+            <Button
+                onPress={this._backDate}
+                color="#000"
+                title="< Back"
+                style={[styles.fullWidth]} />
+          </View>
+          <Text style={[styles.regularFont]}>{date}</Text>
+          <View style={[styles.flexEnd]}>
+            <Button
+                onPress={this._forwardDate}
+                color="#000"
+                title="Forward >"
+                style={[styles.col2]}
+                disabled={disableForward} />
+          </View>
         </View>
-        <WeightForm 
+        <View style={[styles.innerView, styles.centered, {flex: 1}]}>
+          <WeightForm 
             date={this.state.date.toDate()}
             weight={this.state.weight} 
             waist={this.state.waist} 
             save={this.save} 
           />
+        </View>
       </SafeAreaView>
     );
   }

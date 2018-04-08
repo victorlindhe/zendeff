@@ -53,6 +53,10 @@ export default {
   superBigFont: {
     fontSize: 38
   },
+  flexStart: {
+    alignSelf: 'flex-start',
+    marginRight: 'auto'
+  },
   flexEnd: {
     alignSelf: 'flex-end',
     marginLeft: 'auto'
