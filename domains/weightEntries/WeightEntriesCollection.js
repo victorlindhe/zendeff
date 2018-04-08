@@ -46,10 +46,10 @@ export default class WeightEntriesCollection {
   }
 
   /*
-   * Sorts entries by date
+   * Sorts entries by date. Copies first to avoid unexpected changes.
    */
   getSorted(inverse = false) {
-    return this.entries.sort((e1, e2) => {
+    return this.entries.slice().sort((e1, e2) => {
       const i = inverse ? -1 : 1;
 
       if(e1 === e2) return 0;
@@ -60,10 +60,10 @@ export default class WeightEntriesCollection {
   /*
    * Returns average of last N days, for key K
    */
-  getAverage(n, k) {
-    const sorted = this.getSorted(true);
-    const index = sorted.length <= n ? 0 : sorted.length - (n+1);
-    const lastDays = sorted.slice(index);
+  getAverage(n, k, m) {
+    const sorted = this.getSorted();
+    const index = sorted.length <= n ? 0 : sorted.length - n;
+    const lastDays = sorted.slice(index, m ? (index+m) : undefined);
     const reducer = (acc, day) => {
       return acc + day[k];
     }
