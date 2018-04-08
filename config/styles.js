@@ -19,6 +19,9 @@ export default {
   negative: {
     backgroundColor: Globals.NEGATIVE_COLOR
   },
+  negativeDisabled: {
+    backgroundColor: Globals.NEGATIVE_COLOR + '50'
+  },
   view: {
     flex: 1,
     alignItems: 'center',

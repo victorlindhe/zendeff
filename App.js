@@ -13,11 +13,11 @@ const AppStack = TabNavigator({
 
 export default SwitchNavigator(
   {
-    Settings: Settings,
+    SettingStack: Settings,
     App: AppStack
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'SettingStack',
     initialRouteParams: {
       initial: true
     }

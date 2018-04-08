@@ -33,6 +33,7 @@ export default class Settings extends React.Component {
     this._showPicker = this._showPicker.bind(this);
     this._save = this._save.bind(this);
     this._updateSettings = this._updateSettings.bind(this);
+    this._isInitial = this._isInitial.bind(this);
 
     this._loadSettings();
   }
@@ -44,13 +45,21 @@ export default class Settings extends React.Component {
   _save = async () => {
     await AsyncStorage.setItem(Globals.SETTINGS_KEY, JSON.stringify(this.state.settings));
     this.setState({ originalSettings: this.state.settings, showPicker: false });
+
+    if(this._isInitial()) {
+      console.log('is initial och så');
+      this.props.navigation.navigate('App')
+    }
   }
 
+  /*
+   * Loads current settings. Redirects to App stack if not first time.
+   */
   _loadSettings = async () => {
     const settings = await AsyncStorage.getItem(Globals.SETTINGS_KEY);
     const settingsParsed = JSON.parse(settings);
 
-    if(settingsParsed && this.props.navigation.state.params && this.props.navigation.state.params.initial) {
+    if(settingsParsed && this._isInitial()) {
       this.props.navigation.navigate('App')
     } else {
       this.setState({
@@ -64,7 +73,7 @@ export default class Settings extends React.Component {
    * Performs a deep equality check using JSON.stringify :)
    */
   _hasUpdatedSettings() {
-    return JSON.stringify(this.state.settings) !== JSON.stringify(this.state.originalSettings)
+    return JSON.stringify(this.state.settings) !== JSON.stringify(this.state.originalSettings);
   }
 
   /*
@@ -72,6 +81,21 @@ export default class Settings extends React.Component {
    */
   _updateSettings(k, v) {
     this.setState({ settings: { ...this.state.settings, [k]: v } });
+  }
+
+  /*
+   * Deletes everything in AsyncStorage
+   */
+  _restoreApplication = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('SettingStack');
+  }
+
+  /*
+   * Checks if application is used first time (or recently reset)
+   */
+  _isInitial() {
+    return !!(this.props.navigation.state.params && this.props.navigation.state.params.initial);
   }
 
   render() {
@@ -124,6 +148,14 @@ export default class Settings extends React.Component {
             onPress={this._save} 
             styles={[styles.fullWidth, saveDisabled ? styles.positiveDisabled : styles.positive]} 
             disabled={saveDisabled} 
+          /> 
+        </View>
+        <View style={[styles.innerView, styles.row, styles.marginTop]}>
+          <ColoredButton 
+            title='Restore application' 
+            onPress={this._restoreApplication} 
+            styles={[styles.fullWidth, this._isInitial() ? styles.negativeDisabled : styles.negative]}
+            disabled={this._isInitial()}
           /> 
         </View>
       </SafeAreaView>
