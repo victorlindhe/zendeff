@@ -41,7 +41,7 @@ export default class WeightForm extends React.Component {
           />
           <TextInput
             placeholder="Navel (cm)"
-            style={[styles.superBigFont, styles.centeredText, styles.width70, { marginTop: 20 }]}
+            style={[styles.superBigFont, styles.centeredText, styles.width70, styles.marginTop]}
           />
           <ColoredButton 
             title="Save" 
