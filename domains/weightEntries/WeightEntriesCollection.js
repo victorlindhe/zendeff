@@ -68,7 +68,7 @@ export default class WeightEntriesCollection {
       return acc + day[k];
     }
 
-    return lastDays.reduce(reducer, 0);
+    return lastDays.reduce(reducer, 0) / n;
   }
 
 };
