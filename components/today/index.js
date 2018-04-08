@@ -80,11 +80,13 @@ export default class Today extends React.Component {
    * Renders Stats component by supplying weight entries
    */
   _renderStats() {
+    let interval = this.state.settings.interval;
+    let averageWeight = this.state.weightEntries.getAverage(interval, 'weight');
+
     return(
       <SafeAreaView style={[styles.view, styles.centered]}>
         <Stats 
-          weightEntries={this.state.weightEntries}
-          interval={this.state.settings.interval}
+          weight={averageWeight}
         />
       </SafeAreaView>
     );
