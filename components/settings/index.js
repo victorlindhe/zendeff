@@ -118,7 +118,7 @@ export default class Settings extends React.Component {
           settings={this.state.settings}
           updateSettings={this._updateSettings}
         />
-        <View style={[styles.innerView, styles.row, { marginTop: 20 }]}>
+        <View style={[styles.innerView, styles.row, styles.marginTop]}>
           <ColoredButton 
             title='Save settings' 
             onPress={this._save} 

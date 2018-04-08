@@ -44,9 +44,9 @@ export default class WeightForm extends React.Component {
             style={[styles.superBigFont, styles.centeredText, styles.width70, { marginTop: 20 }]}
           />
           <ColoredButton 
-            title="Save today" 
+            title="Save" 
             onPress={() => {}}
-            styles={[styles.positive, styles.width70, { marginTop: 20 }]} 
+            styles={[styles.positive, styles.width70, styles.marginTop]} 
           />
         </View>
       </SafeAreaView>

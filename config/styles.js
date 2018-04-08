@@ -60,5 +60,8 @@ export default {
   },
   width70: {
     width: '70%'
+  },
+  marginTop: {
+    marginTop: 20
   }
 };

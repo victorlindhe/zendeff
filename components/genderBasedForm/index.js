@@ -15,7 +15,7 @@ export default class GenderBasedForm extends React.Component {
 
   _renderMale() {
     return(
-      <View style={[styles.innerView, styles.row, { marginTop: 20 }]}>
+      <View style={[styles.innerView, styles.row, styles.marginTop]}>
         <TextInput 
           style={[styles.fullWidth, styles.regularFont]}
           value={this.props.settings.neck ? this.props.settings.neck.toString() : ''} 
@@ -27,7 +27,7 @@ export default class GenderBasedForm extends React.Component {
 
   _renderFemale() {
     return(
-      <View style={[styles.innerView, styles.row, { marginTop: 20 }]}>
+      <View style={[styles.innerView, styles.row, styles.marginTop]}>
         <TextInput 
           style={[styles.col2, styles.regularFont]}
           value={this.props.settings.neck ? this.props.settings.neck.toString() : ''} 
