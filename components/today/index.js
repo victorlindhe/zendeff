@@ -72,14 +72,14 @@ export default class WeightForm extends React.Component {
           <View style={[styles.innerView, styles.centered]}>
             <TextInput
               placeholder="Weight (kg)"
-              value={this.state.weight}
-              onChangeText={(v) => { this.setState({ weight: parseInt(weight) }) }}
+              value={this.state.weight ? this.state.weight.toString() : null}
+              onChangeText={(v) => { this.setState({ weight: parseInt(v) }) }}
               style={[styles.superBigFont, styles.centeredText, styles.width70]}
             />
             <TextInput
               placeholder="Waist (cm)"
-              value={this.state.waist}
-              onChangeText={(v) => { this.setState({ waist: parseInt(waist) }) }}
+              value={this.state.waist ? this.state.waist.toString() : null}
+              onChangeText={(v) => { this.setState({ waist: parseInt(v) }) }}
               style={[styles.superBigFont, styles.centeredText, styles.width70, styles.marginTop]}
             />
             <ColoredButton 
