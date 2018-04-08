@@ -47,6 +47,9 @@ export default {
   regularFont: {
     fontSize: 18
   },
+  bigFont: {
+    fontSize: 28
+  },
   superBigFont: {
     fontSize: 42
   },
