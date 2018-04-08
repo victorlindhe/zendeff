@@ -1,13 +1,13 @@
 import React from 'react';
 import { StackNavigator, SwitchNavigator, TabNavigator } from 'react-navigation';
 import Settings from 'zendeff/components/settings';
-import WeightForm from 'zendeff/components/weightForm';
+import Today from 'zendeff/components/today';
 
 /*
  * Application entry point.
  */
 const AppStack = TabNavigator({ 
-  WeightForm: StackNavigator({ WeightForm: WeightForm }), 
+  Today: StackNavigator({ Today: Today }), 
   Settings: StackNavigator({ Settings: Settings })
 });
 

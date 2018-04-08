@@ -10,5 +10,6 @@ export default {
     gender: 'male',
     interval: 7
   },
-  SETTINGS_KEY: 'SETTINGS'
+  SETTINGS_KEY: 'SETTINGS',
+  DATA_ENTRIES: 'DATA_ENTRIES'
 };
