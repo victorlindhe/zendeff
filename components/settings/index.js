@@ -5,12 +5,6 @@ import Globals from 'zendeff/config/globals.js';
 import Picker from 'zendeff/components/picker';
 import ColoredButton from 'zendeff/components/coloredButton';
 import GenderBasedForm from 'zendeff/components/genderBasedForm'; 
-import { YellowBox } from 'react-native';
-
-YellowBox.ignoreWarnings([
-  'Warning: componentWillMount is deprecated',
-  'Warning: componentWillReceiveProps is deprecated',
-]);
 
 const styles = StyleSheet.create(GlobalStyles);
 
