@@ -32,6 +32,15 @@ export default class Today extends React.Component {
   }
 
   /*
+   * Adds listener to update whenever screen is focused
+   */
+  componentDidMount() {
+    this.props.navigation.addListener('willFocus', () => {
+      this._load();
+    });
+  }
+
+  /*
    * Loads settings and stored weightEntries
    */
   _load = async () => {
