@@ -61,14 +61,12 @@ export default class WeightEntriesCollection {
    * Returns average of last N days, for key K
    */
   getAverage(n, k, m) {
-    const sorted = this.getSorted();
+    const sorted = this.getSorted(true);
     const index = sorted.length <= n ? 0 : sorted.length - n;
     const lastDays = sorted.slice(index, m ? (index+m) : undefined);
     const reducer = (acc, day) => {
       return acc + day[k];
     }
-
-    console.log(lastDays);
 
     return lastDays.reduce(reducer, 0) / lastDays.length;
   }
