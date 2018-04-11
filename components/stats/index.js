@@ -17,8 +17,8 @@ export default class Stats extends React.Component {
    * Renders the stats
    */
   render() {
-    let weightDiffWord = this.props.weightDiff < 0 ? 'Down' : 'up';
-    let waistDiffWord = this.props.waistDiff < 0 ? 'Down' : 'up';
+    let weightDiffWord = this.props.weightDiff < 0 ? 'Down' : 'Up';
+    let waistDiffWord = this.props.waistDiff < 0 ? 'Down' : 'Up';
     let weightClass = this.props.weightDiff < 0 ? styles.positiveText : styles.negativeText;
     let waistClass = this.props.waistDiff < 0 ? styles.positiveText : styles.negativeText;
 
@@ -34,7 +34,7 @@ export default class Stats extends React.Component {
         <Text style={[styles.regularFont, styles.fullWidth, styles.marginTop]}>Current waist</Text> 
         <Text style={[styles.superBigFont, styles.fullWidth]}>{this.props.waist} cm</Text>
         <Text style={[styles.regularFont, styles.fullWidth]}>
-          {weightDiffWord} <Text style={[styles.bold, waistClass]}>{Math.abs(this.props.waistDiff)} kg</Text> in {this.props.interval} days
+          {weightDiffWord} <Text style={[styles.bold, waistClass]}>{Math.abs(this.props.waistDiff)} cm</Text> in {this.props.interval} days
         </Text>
       </View>
     );
