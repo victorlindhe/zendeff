@@ -1,0 +1,3 @@
+rootProject.name = 'zendeff'
+
+include ':app'

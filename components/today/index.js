@@ -6,6 +6,7 @@ import ColoredButton from 'zendeff/components/coloredButton';
 import WeightForm from 'zendeff/components/weightForm';
 import Stats from 'zendeff/components/stats';
 import WeightEntriesCollection from 'zendeff/domains/weightEntries/WeightEntriesCollection.js';
+import moment from 'moment';
 
 const styles = StyleSheet.create(GlobalStyles);
 
@@ -24,11 +25,20 @@ export default class Today extends React.Component {
 
     // Default to today's date if not stated
     this.state = {
-      date: this.props.date || new Date(new Date().toDateString())
+      date: this.props.date || +moment().startOf('day')
     };
 
     this.save = this.save.bind(this);
     this._load();
+  }
+
+  /*
+   * Adds listener to update whenever screen is focused
+   */
+  componentDidMount() {
+    this.props.navigation.addListener('willFocus', () => {
+      this._load();
+    });
   }
 
   /*
