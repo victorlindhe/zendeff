@@ -76,14 +76,14 @@ export default class AddEntry extends React.Component {
    * Steps back a date
    */
   _backDate() {
-    this._setNewDate(moment(this.state.date).subtract(1, 'days'));
+    this._setNewDate(+moment(this.state.date).subtract(1, 'days'));
   }
 
   /*
    * Steps forward a date
    */
   _forwardDate() {
-    this._setNewDate(moment(this.state.date).add(1, 'days'));
+    this._setNewDate(+moment(this.state.date).add(1, 'days'));
   }
 
   /*
@@ -100,7 +100,7 @@ export default class AddEntry extends React.Component {
    * Returns weight parameters to state
    */
   _getWeightState(date) {
-    const entry = this.state.weightEntries.getByDate(date.toDate());
+    const entry = this.state.weightEntries.getByDate(date);
 
     if(!entry) {
       return {
@@ -119,7 +119,7 @@ export default class AddEntry extends React.Component {
    * Returns today by midnight
    */
   _getToday() {
-    return moment().startOf('day');
+    return +moment().startOf('day');
   }
 
   /* 
@@ -127,8 +127,8 @@ export default class AddEntry extends React.Component {
    * Otherwise it renders the weight form.
    */
   render() {
-    let date = this.state.date.format('YYYY-MM-DD');
-    let disableForward = !this.state.date.isBefore(this._getToday());
+    let dateString = moment(this.state.date).format('YYYY-MM-DD');
+    let disableForward = (this.state.date >= this._getToday());
 
     if(!this.state.weightEntries) return null
 
@@ -142,7 +142,7 @@ export default class AddEntry extends React.Component {
                 title="< Back"
                 style={[styles.fullWidth]} />
           </View>
-          <Text style={[styles.regularFont]}>{date}</Text>
+          <Text style={[styles.regularFont]}>{dateString}</Text>
           <View style={[styles.flexEnd]}>
             <Button
                 onPress={this._forwardDate}
@@ -154,7 +154,7 @@ export default class AddEntry extends React.Component {
         </View>
         <View style={[styles.innerView, styles.centered, {flex: 1}]}>
           <WeightForm 
-            date={this.state.date.toDate()}
+            date={this.state.date}
             weight={this.state.weight} 
             waist={this.state.waist} 
             save={this.save} 

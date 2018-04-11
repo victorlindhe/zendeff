@@ -28,7 +28,7 @@ export default class WeightEntriesCollection {
    */
   getByDate(date) {
     return this.entries.find((entry) => {
-      return new Date(entry.date).getTime() === date.getTime();
+      return entry.date === +date;
     });
   }
 
@@ -53,7 +53,7 @@ export default class WeightEntriesCollection {
       const i = inverse ? -1 : 1;
 
       if(e1 === e2) return 0;
-      return moment(e1).isAfter(e2) ? i*1 : i*-1;
+      return e1.date > e2.date ? i*1 : i*-1;
     });
   }
 
@@ -61,9 +61,10 @@ export default class WeightEntriesCollection {
    * Returns average of last N days, for key K
    */
   getAverage(n, k, m) {
-    const sorted = this.getSorted(true);
+    const sorted = this.getSorted();
     const index = sorted.length <= n ? 0 : sorted.length - n;
     const lastDays = sorted.slice(index, m ? (index+m) : undefined);
+
     const reducer = (acc, day) => {
       return acc + day[k];
     }
