@@ -51,7 +51,7 @@ export default {
     fontSize: 28
   },
   superBigFont: {
-    fontSize: 38
+    fontSize: 42
   },
   flexStart: {
     alignSelf: 'flex-start',
@@ -74,6 +74,9 @@ export default {
   marginTop: {
     marginTop: 20
   },
+  paddingBottom: {
+    paddingBottom: 20
+  },
   bold: {
     fontWeight: 'bold'
   },
@@ -82,5 +85,9 @@ export default {
   },
   negativeText: {
     color: Globals.NEGATIVE_COLOR
+  },
+  borderBottom: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#000'
   }
 };
