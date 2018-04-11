@@ -35,25 +35,30 @@ export default class WeightForm extends React.Component {
     let waist = this.props.waist;
 
     return(
-      <View style={[styles.innerView, styles.centered]}>
-        <TextInput
-          placeholder="Weight (kg)"
-          value={weight ? weight.toString() : null}
-          onChangeText={(v) => { this.setState({ weight: parseFloat(v) }) }}
-          style={[styles.superBigFont, styles.centeredText, styles.width70]}
-        />
-        <TextInput
-          placeholder="Waist (cm)"
-          value={waist ? waist.toString() : null}
-          onChangeText={(v) => { this.setState({ waist: parseFloat(v) }) }}
-          style={[styles.superBigFont, styles.centeredText, styles.width70, styles.marginTop]}
-        />
-        <ColoredButton 
-          title="Save" 
-          onPress={this._save}
-          styles={[styles.positive, styles.width70, styles.marginTop]} 
-        />
+      <View style={[styles.innerView, styles.centered, styles.fullWidth]}>
+        <View style={[styles.fullWidth, styles.centered, styles.row]}>
+          <TextInput
+            placeholder="KG"
+            value={weight ? weight.toString() : null}
+            onChangeText={(v) => { this.setState({ weight: parseFloat(v) }) }}
+            style={[styles.superBigFont, styles.centeredText, styles.col2]}
+          />
+          <TextInput
+            placeholder="CM"
+            value={waist ? waist.toString() : null}
+            onChangeText={(v) => { this.setState({ waist: parseFloat(v) }) }}
+            style={[styles.superBigFont, styles.centeredText, styles.col2]}
+          />
+        </View>
+        <View style={[styles.fullWidth, styles.centered]}>
+          <ColoredButton 
+              title="Save" 
+              onPress={this._save}
+              styles={[styles.positive, styles.width70, styles.marginTop]} 
+            />
+        </View>
       </View>
+      
     );
   }
 }
